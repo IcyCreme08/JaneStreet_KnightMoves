@@ -1,22 +1,25 @@
 public class Lattice {
-    private int altitude;
+    private double altitude;
     private int visits = 0;
     public Lattice(int alt){
-        this.altitude = alt;
+        altitude = alt;
     }
     public void visit(){
-        this.visits++;
+        visits++;
     }
     public void raise(){
-        this.altitude++;
+        altitude++;
     }
     public void lower(){
-        this.altitude--;
+        altitude--;
     }
-    public int getAltitude() {
+    public double getAltitude() {
         return altitude;
     }
-    public void setAltitude(int altitude) {
-        this.altitude = altitude;
+    public int getVisits(){
+        return visits;
+    }
+    public void setAltitude(double newAltitude) {
+        altitude = newAltitude;
     }
 }
