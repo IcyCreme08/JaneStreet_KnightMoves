@@ -5,6 +5,7 @@ import java.math.*;
 
 public class Board {
     public String currentPos = "a1";
+    public LinkedHashMap<HashMap<String, Lattice>, int> pastMinutes = new LinkedHashMap<>();
     public LinkedHashMap<String, HashMap<String, Lattice>> pastBoards = new LinkedHashMap<>();
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
@@ -145,6 +146,7 @@ public class Board {
     }
     public void moveKnight(String newPos, int minutes){
         pastBoards.put(currentPos, new HashMap<String, Lattice>(board));
+        pastMinutes.put(board, minutes);
         //Find lattice of same altitude
         move(newPos);
         Lattice newSpot = board.get(newPos);
@@ -174,10 +176,14 @@ public class Board {
         }
     }
     public void goBack(){
-        String previous = pastBoards.lastEntry().getKey();
-        board = pastBoards.get(previous);
-        move(previous);
+        String previousBoard = pastBoards.lastEntry().getKey();
+        board = pastBoards.get(previousBoard);
         pastBoards.remove(previous);
+        HashMap<String, Lattice> previousMinutes = pastMinutes.lastEntry().getKey();
+        minutes = pastMinutes.get(previousMinutes);
+        pastMinutes.remove(previousMinutes);
+       
+        move(previous);
         printBoard();
     }
 }
